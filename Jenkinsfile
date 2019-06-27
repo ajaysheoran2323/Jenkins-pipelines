@@ -14,10 +14,24 @@ pipeline {
 
       }
     }
-    stage('pipeline completed') {
+    stage('DEPLOYTOK8S') {
       steps {
-        echo 'completed'
+        script {
+          kubernetesDeploy(kubeconfigId: 'kubernetes',
+
+          configs: 'K8sDeployment.yaml',
+          enableConfigSubstitution: false,
+          secretNamespace: 'devops',
+          secretName: 'devops'
+        )
       }
+
     }
   }
+  stage('PipelineEnded') {
+    steps {
+      echo 'Pipeline successful'
+    }
+  }
+}
 }
