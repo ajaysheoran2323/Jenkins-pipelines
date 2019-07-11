@@ -10,6 +10,7 @@ pipeline {
       steps {
         script {
           dockerImage = docker.build("ajaysheoran2323/docker-nginx:$BUILD_NUMBER","-f dockerfile/MyDockerFile .")
+          dockerImage.push()
         }
 
       }
